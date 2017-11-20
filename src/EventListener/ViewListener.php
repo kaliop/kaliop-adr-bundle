@@ -3,8 +3,8 @@
 namespace Kaliop\AdrBundle\EventListener;
 
 
-use ApiBundle\Response\ArgumentResolver;
-use ApiBundle\Response\ContentNegotiator;
+use Kaliop\AdrBundle\Response\ArgumentResolver;
+use Kaliop\AdrBundle\Response\ContentNegotiator;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Response;

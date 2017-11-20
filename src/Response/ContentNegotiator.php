@@ -3,7 +3,7 @@
 namespace Kaliop\AdrBundle\Response;
 
 
-use ApiBundle\Serializer\Serializer;
+use Kaliop\AdrBundle\Serializer\Serializer;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;

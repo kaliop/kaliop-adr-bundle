@@ -4,7 +4,7 @@
 namespace Kaliop\AdrBundle\EventListener;
 
 
-use ApiBundle\Response\ContentNegotiator;
+use Kaliop\AdrBundle\Response\ContentNegotiator;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Response;
@@ -71,9 +71,6 @@ class ExceptionListener implements EventSubscriberInterface
         if ($exception instanceof HttpExceptionInterface) {
             $statusCode = $exception->getStatusCode();
             $message = $exception->getMessage();
-        } elseif ($exception instanceof \Swift_TransportException) {
-            $statusCode = 1;
-            $message = 'email.not_sent';
         } else {
             $statusCode = $exception->getCode();
             $message = $exception->getMessage();
