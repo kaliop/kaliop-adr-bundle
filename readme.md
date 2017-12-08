@@ -15,7 +15,7 @@ This bundle simplifies the setup of the ADR in a Symfony project.
 
 ### Configure repository
 ```bash
-$ php composer.phar config repositories.kaliopAdrBundle '{ "type": "vcs", "url": "ssh://git@github.com:kaliop/kaliop-adr-bundle.git" }'
+$ php composer.phar config repositories.kaliopAdrBundle '{ "type": "vcs", "url": "https://github.com/kaliop/kaliop-adr-bundle.git" }'
 ```
 ### Install library
 ```bash
