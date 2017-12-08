@@ -119,3 +119,11 @@ class ViewPostResponder
     }
 }
 ```
+
+For the autowiring system to work with the responders, you need to declare them like controllers in the services.yml.
+```yaml
+AppBundle\Responder\:
+    resource: '../../src/AppBundle/Responder'
+    public: true
+    tags: ['controller.service_arguments']
+```
