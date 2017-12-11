@@ -36,27 +36,25 @@ class ContentNegotiator
 
     /**
      * @param array $data
-     * @param int $status
      * @return Response
      * @throws \Exception
      */
-    public function negotiate(array $data, int $status = Response::HTTP_OK) : Response
+    public function negotiate(array $data) : Response
     {
         $data = $this->resolve($data);
         $accept = $this->request->getAcceptableContentTypes();
 
         $response = null;
-        $headers = [];
         $content = [];
 
-        if (count(array_intersect(['application/json', 'application/x-json', '*/*'], $accept)) > 0) {
+        if (count(array_intersect(['application/json', 'application/x-json'], $accept)) > 0) {
             $content['data'] = $this->serializer->normalize(
                 $data['data'],
                 self::JSON,
                 $this->getSerializationGroups($data)
             );
 
-            $response = new JsonResponse($content, Response::HTTP_OK, $headers);
+            $response = new JsonResponse($content);
         }
 
         if (count(array_intersect(['application/xml'], $accept)) > 0) {
@@ -67,10 +65,8 @@ class ContentNegotiator
         }
 
         if (!$response) {
-            $response = new Response(serialize($data), $status);
+            $response = new Response(serialize($data));
         }
-
-        $response->headers->add($headers);
 
         return $response;
     }

@@ -57,7 +57,7 @@ class ExceptionListener implements EventSubscriberInterface
 
     /**
      * @param GetResponseForExceptionEvent $event
-     * @return Response
+     * @throws \Exception
      */
     public function onKernelException(GetResponseForExceptionEvent $event)
     {
@@ -65,8 +65,14 @@ class ExceptionListener implements EventSubscriberInterface
             return;
         }
 
+        // Don't override symfony default behaviour in case client accepts html
+        if (count(array_intersect(['text/html', '*/*'], $event->getRequest()->getAcceptableContentTypes())) > 0) {
+            return;
+        }
+
         $event->allowCustomResponseCode();
         $exception = $event->getException();
+        $headers = [];
 
         if ($exception instanceof HttpExceptionInterface) {
             $statusCode = $exception->getStatusCode();
@@ -94,6 +100,10 @@ class ExceptionListener implements EventSubscriberInterface
             $exception->getLine()
         ));
 
-        $event->setResponse($this->negotiator->negotiate($data, $statusCode));
+        $response = $this->negotiator->negotiate($data);
+        $response->headers->add($headers);
+        $response->setStatusCode($statusCode);
+
+        $event->setResponse($response);
     }
 }
