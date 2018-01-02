@@ -77,17 +77,20 @@ class ArgumentResolver
 
         foreach ($argumentMetadata as $metadata) {
 
+            $allowedTypes = [$metadata->getType()];
+
             if (false === $metadata->isNullable()) {
                 $resolver->setRequired($metadata->getName());
             } else {
                 $resolver->setDefined($metadata->getName());
+                $allowedTypes[] = 'null';
             }
 
             if ($metadata->hasDefaultValue()) {
                 $resolver->setDefault($metadata->getName(), $metadata->getDefaultValue());
             }
 
-            $resolver->setAllowedTypes($metadata->getName(), $metadata->getType());
+            $resolver->setAllowedTypes($metadata->getName(), $allowedTypes);
         }
 
         return $resolver->resolve($args);
