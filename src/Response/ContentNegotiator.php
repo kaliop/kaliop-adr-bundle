@@ -45,10 +45,9 @@ class ContentNegotiator
         $accept = $this->request->getAcceptableContentTypes();
 
         $response = null;
-        $content = [];
 
         if (count(array_intersect(['application/json', 'application/x-json'], $accept)) > 0) {
-            $content['data'] = $this->serializer->normalize(
+            $content = $this->serializer->normalize(
                 $data['data'],
                 self::JSON,
                 $this->getSerializationGroups($data)
@@ -58,7 +57,7 @@ class ContentNegotiator
         }
 
         if (count(array_intersect(['application/xml'], $accept)) > 0) {
-            $content['data'] = $data['data'];
+            $content = $data['data'];
             $response = new Response(
                 $this->serializer->serialize($content, self::XML, $this->getSerializationGroups($data))
             );
