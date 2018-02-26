@@ -30,7 +30,12 @@ class JsonRequestListener implements EventSubscriberInterface
             return;
         }
 
-        $content = json_decode($event->getRequest()->getContent(), true);
+        if (!$request->getContent()) {
+            $content = [];
+        } else {
+            $content = json_decode($request->getContent(), true);
+        }
+
         if (null === $content) {
             throw new BadRequestHttpException("Invalid JSON");
         }
