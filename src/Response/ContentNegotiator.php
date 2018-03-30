@@ -67,6 +67,8 @@ class ContentNegotiator
             $response = new Response(serialize($data));
         }
 
+        $response->setStatusCode($data['status_code']);
+
         return $response;
     }
 
@@ -101,8 +103,13 @@ class ContentNegotiator
         return (new OptionsResolver())
             ->setRequired(['data'])
             ->setDefined(['serialization_groups'])
+            ->setDefaults([
+                'status_code' => Response::HTTP_OK,
+            ])
             ->setAllowedTypes('data', 'array')
             ->setAllowedTypes('serialization_groups', ['string', 'array'])
+            ->setAllowedTypes('status_code', 'int')
+            ->setAllowedValues('status_code', array_keys(Response::$statusTexts))
             ->resolve($data);
     }
 }

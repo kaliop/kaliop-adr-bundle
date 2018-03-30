@@ -66,6 +66,7 @@ class ViewListener implements EventSubscriberInterface
 
     /**
      * @param GetResponseForControllerResultEvent $event
+     * @throws \Exception
      */
     public function onKernelView(GetResponseForControllerResultEvent $event)
     {

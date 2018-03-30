@@ -92,7 +92,11 @@ class ViewPostAction
 ## Responder
 The responder can either:
 * directly return an instance of `Symfony\Component\HttpFoundation\Response` (e.g. when you return a response containing HTML generated with Twig)
-* an array of data to be serialized in the response (mostly the case when you're building an API that returns Json or XML). In that case you can specify serialization groups.
+* an array of data to be serialized in the response (mostly the case when you're building an API that returns Json or XML). This array
+has the following keys:
+  * data (array, mandatory): the data to be serialize in the response body
+  * status_code (int, optional, default: 200): the status code of the response
+  * serialization_groups (optional, default: null): the serialization group to use to serialize the data
  
 ```php
 <?php
@@ -115,15 +119,15 @@ class ViewPostResponder
                 'post' => $post,
             ],
             'serialization_groups' => 'view',
+            'status_code' => 201
         ];
     }
 }
 ```
 
-For the autowiring system to work with the responders, you need to declare them like controllers in the services.yml.
+For the autowiring system to work with the responders, you need to declare them as public services.
 ```yaml
 AppBundle\Responder\:
     resource: '../../src/AppBundle/Responder'
     public: true
-    tags: ['controller.service_arguments']
 ```

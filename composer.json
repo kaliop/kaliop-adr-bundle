@@ -13,10 +13,11 @@
   ],
   "require": {
     "php": "~7.1",
-    "symfony/http-kernel": "^3.3.10",
-    "symfony/options-resolver": "^3.3.10",
-    "symfony/dependency-injection": "^3.3.10",
-    "symfony/config": "^3.3.10"
+    "symfony/http-kernel": "^3.3",
+    "symfony/http-foundation": "^3.3",
+    "symfony/options-resolver": "^3.3",
+    "symfony/dependency-injection": "^3.3",
+    "symfony/config": "^3.3"
   },
   "suggest": {
     "kaliop/console-bundle": "^1.0"
