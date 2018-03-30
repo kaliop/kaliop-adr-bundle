@@ -54,4 +54,28 @@ class Serializer
     {
         return $this->serializer->serialize($obj, $format, $context);
     }
+
+    /**
+     * @param array $data
+     * @param string $type
+     * @param string|null $format
+     * @param array $context
+     * @return mixed
+     */
+    public function denormalize(array $data, string $type, string $format = null, array $context = [])
+    {
+        return $this->serializer->denormalize($data, $type, $format, $context);
+    }
+
+    /**
+     * @param string $data
+     * @param string $type
+     * @param string|null $format
+     * @param array $context
+     * @return mixed
+     */
+    public function deserialize(string $data, string $type, string $format = null, array $context = [])
+    {
+        return $this->serializer->deserialize($data, $type, $format, $context);
+    }
 }
