@@ -3,11 +3,11 @@
 namespace Kaliop\AdrBundle\Response;
 
 
-use Kaliop\AdrBundle\Serializer\Serializer;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Serializer\SerializerInterface;
 
 /**
  * Class ContentNegociator
@@ -20,15 +20,15 @@ class ContentNegotiator
     /** @var null|\Symfony\Component\HttpFoundation\Request */
     private $request;
 
-    /** @var Serializer  */
+    /** @var SerializerInterface  */
     private $serializer;
 
     /**
      * ContentNegotiator constructor.
      * @param RequestStack $requestStack
-     * @param Serializer $serializer
+     * @param SerializerInterface $serializer
      */
-    public function __construct(RequestStack $requestStack, Serializer $serializer)
+    public function __construct(RequestStack $requestStack, SerializerInterface $serializer)
     {
         $this->request = $requestStack->getMasterRequest();
         $this->serializer = $serializer;
